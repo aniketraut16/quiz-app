@@ -1,6 +1,5 @@
 body {
     font-family: 'Roboto', sans-serif;
-    overflow-x: hidden;
     color: white;
 }
 
@@ -75,19 +74,22 @@ body {
     position: absolute;
     width: 80%;
     top: 10%;
-    left: 50%;
-    transform: translateX(-50%);
+    left: 22%;
     background-color: rgba(0, 0, 0, 0.652);
     border-radius: 15px;
 }
 
-/* Media query for mobile screens */
-@media (max-width: 767px) {
-    #quiz-container {
-        left: 22%;
+
+
+@media (min-width: 1024px) {
+    body {
+        overflow-x: hidden;
+    }
+    #result-container,#quiz-container {
+        left: 50%;
+        transform: translateX(-50%);
     }
 }
-
 input[type="radio"] {
     display: none;
 }
@@ -174,24 +176,11 @@ input[type="checkbox"]:checked+label {
 }
 
 
-
-
-
-/* #result-container(div) > #answersct(ul) > li > .questiondisplay(div) > h3 > .optcont(div) > .option (div)  */
-
-
-
-
-
-
-
-
 #result-container {
     position: absolute;
     width: 80%;
     top: 10%;
-    left: 50%;
-    transform: translateX(-50%);
+    left: 22%;
     background-color: rgba(0, 0, 0, 0.652);
     border-radius: 15px;
 }
