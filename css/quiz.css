@@ -1,6 +1,7 @@
 body {
     font-family: 'Roboto', sans-serif;
     color: white;
+     overflow-x: hidden;
 }
 
 
@@ -82,9 +83,6 @@ body {
 
 
 @media (min-width: 1024px) {
-    body {
-        overflow-x: hidden;
-    }
     #result-container,#quiz-container {
         left: 50%;
         transform: translateX(-50%);
