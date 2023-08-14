@@ -75,9 +75,17 @@ body {
     position: absolute;
     width: 80%;
     top: 10%;
-    left: 20%;
+    left: 50%;
+    transform: translateX(-50%);
     background-color: rgba(0, 0, 0, 0.652);
     border-radius: 15px;
+}
+
+/* Media query for mobile screens */
+@media (max-width: 767px) {
+    #quiz-container {
+        left: 22%;
+    }
 }
 
 input[type="radio"] {
