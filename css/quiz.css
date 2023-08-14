@@ -5,13 +5,6 @@ body {
 }
 
 
-
-/* Rest of your CSS code */
-
-#quiz-container {
-    display: none;
-}
-
 #result-container {
     display: none;
 }
@@ -38,13 +31,6 @@ body {
     display: flex;
     flex-direction: column;
     margin-top: 10px;
-}
-
-#quiz-container {
-    background-color: #f9f9f9;
-    padding: 1.5rem;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(107, 104, 104, 0.087);
 }
 
 #question-container {
@@ -83,6 +69,9 @@ body {
 
 /* Quiz Styling */
 #quiz-container {
+    display: none;
+    padding: 1.5rem;
+    box-shadow: 0 2px 4px rgba(107, 104, 104, 0.087);
     position: absolute;
     width: 80%;
     top: 10%;
