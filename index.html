@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>Quiz</title>
     <link rel="stylesheet" href="css/quiz.css" />
+    <link rel="stylesheet" href="css/bootstrap.css" />
     <link
       href="https://fonts.googleapis.com/css?family=Roboto&display=swap"
       rel="stylesheet"
@@ -10,7 +12,9 @@
     <style></style>
   </head>
   <body>
-    <nav></nav>
+    <nav>
+      
+    </nav>
     <div id="home-container">
       <form action="" id="setup">
         <label for="name">Enter Your Name :)</label>
@@ -33,72 +37,113 @@
           <option value="categories">Select categories</option>
         </select>
         <div class="catagory">
-          <span class="cat">
-            <input type="checkbox" name="select" id="generalKnowledge" />
+          
+            <input type="checkbox" name="select" id="generalKnowledge" checked/>
             <label for="generalKnowledge">General Knowledge</label>
-          </span>
-          <span class="cat">
+          
+          
             <input type="checkbox" name="select" id="scienceTechnology" />
             <label for="scienceTechnology">Science and Technology</label>
-          </span>
-          <span class="cat">
+          
+          
             <input type="checkbox" name="select" id="sports" />
             <label for="sports">Sports</label>
-          </span>
-          <span class="cat">
+          
+          
             <input type="checkbox" name="select" id="moviesEntertainment" />
             <label for="moviesEntertainment">Movies and Entertainment</label>
-          </span>
-          <span class="cat">
+          
+          
             <input type="checkbox" name="select" id="history" />
             <label for="history">History</label>
-          </span>
-          <span class="cat">
+          
+          
             <input type="checkbox" name="select" id="geography" />
             <label for="geography">Geography</label>
-          </span>
-          <span class="cat">
+          
+          
             <input type="checkbox" name="select" id="literature" />
             <label for="literature">Literature</label>
-          </span>
-          <span class="cat">
+          
+          
             <input type="checkbox" name="select" id="mathsLogic" />
             <label for="mathsLogic">Maths and Logic</label>
-          </span>
-          <span class="cat">
+          
+          
             <input type="checkbox" name="select" id="music" />
             <label for="music">Music</label>
-          </span>
+          
         </div>
-        <input type="submit" class="submit-btn" value="Start Quizz" />
+        <input type="submit" class="submit-btn1" value="Start Quizz" />
       </form>
     </div>
 
     <div id="quiz-container">
       <form id="quiz-form">
-        <ul id="question-container"></ul>
-        <input type="submit" class="submit-btn" value="Submit" />
+        <ul id="question-container">
+          <!-- <li class = "oneque">
+            <div class="que">
+              <h3>${question}</h3>
+              <div class="optcont">
+                <input type="radio" name="que${i + 1}" id="que${
+          i + 1
+        }_option1" class="que${i + 1}_option_1" value="0" />
+                <label class="quiz-label" for="que${
+                  i + 1
+                }_option1">${option1}</label>
+                
+                <input type="radio" name="que${i + 1}" id="que${
+          i + 1
+        }_option2" class="que${i + 1}_option_2" value="1" />
+                <label class="quiz-label" for="que${
+                  i + 1
+                }_option2">${option2}</label>
+                
+                <input type="radio" name="que${i + 1}" id="que${
+          i + 1
+        }_option3" class="que${i + 1}_option_3" value="2" />
+                <label class="quiz-label" for="que${
+                  i + 1
+                }_option3">${option3}</label>
+                
+                <input type="radio" name="que${i + 1}" id="que${
+          i + 1
+        }_option4" class="que${i + 1}_option_4" value="3" />
+                <label class="quiz-label" for="que${
+                  i + 1
+                }_option4">${option4}</label>
+              </div>
+            </div>
+          </li> -->
+        </ul>
       </form>
-      <input
+        <input
+          type="submit"
+          class="submit-btn"
+          id="quizz-submit"
+          value="Next Question"
+        />
+        <input
         type="reset"
         class="submit-btn"
         value="Restart Quiz"
-        id="restart"
+        id="restart2"
       />
+      </div>
     </div>
 
     <div id="result-container">
-      <h1>Results</h1>
-      <h3 id="result-display"></h3>
-      <div class="colors">
-        <div class="green"></div>
-        <div>Correct Answer</div>
-        <div class="red"></div>
-        <div>Wrong Answer</div>
-        <div class="orange"></div>
-        <div>Not Answered</div>
+      
+        <h2>Results</h2>
+        <h3 id="result-display"></h3>
+        <div class="colors">
+          <div class="green"></div>
+          <div>Correct Answer</div>
+          <div class="red"></div>
+          <div>Wrong Answer</div>
+          <div class="orange"></div>
+          <div>Not Answered</div>
       </div>
-
       <ul id="answersct">
         <!-- <li>
           <div class="questiondisplay">
@@ -119,29 +164,8 @@
         id="restart2"
       />
     </div>
-
-    <script src="js/quizz.js"></script>
-    <script src="js/data.js"></script>
-    <script>
-      const typeSelect = document.getElementById("type");
-      const catElements = document.getElementsByClassName("cat");
-
-      typeSelect.addEventListener("change", function () {
-        if (typeSelect.value === "mixed") {
-          // Hide elements
-          for (let i = 0; i < catElements.length; i++) {
-            catElements[i].style.display = "none";
-          }
-        } else if (typeSelect.value === "categories") {
-          // Show elements
-          for (let i = 0; i < catElements.length; i++) {
-            catElements[i].style.display = "inline-block";
-          }
-        }
-      });
-      // Ensure "Mixed" is selected by default
-      typeSelect.value = "mixed";
-      typeSelect.dispatchEvent(new Event("change"));
-    </script>
   </body>
+
+  <script src="js/quizz.js"></script>
+  <script src="js/data.js"></script>
 </html>

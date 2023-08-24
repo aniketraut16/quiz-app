@@ -27,8 +27,8 @@ function generateQuiz(questions) {
     CorrectAnswers.push(`que${i + 1}_option${answer + 1}`);
 
     const questionHTML = `
-      <li>
-        <div class="que">
+      <li class = "oneque">
+
           <h3>${question}</h3>
           <div class="optcont">
             <input type="radio" name="que${i + 1}" id="que${
@@ -59,7 +59,6 @@ function generateQuiz(questions) {
               i + 1
             }_option4">${option4}</label>
           </div>
-        </div>
       </li>
     `;
 
@@ -97,45 +96,25 @@ let CorrectAnswers = [];
 let selectedWrongAnswers = [];
 let selectedCorrectAnswers = [];
 document.addEventListener("DOMContentLoaded", function () {
-  const googleDriveLinks = [
-    "https://drive.google.com/uc?id=1xUC0VX7eaBXulMWqLZW0C9SmEi0uu1fD",
-    "https://drive.google.com/uc?id=1yNGEq2eTrvH-qG_dExuNqdBxrbYiJjUt",
-    "https://drive.google.com/uc?id=13VLxhBCoBn1U8s0l1yXeYyatG-Nd-11M",
-    "https://drive.google.com/uc?id=10n-vq-KU4AMO0YaqPh3UlfklXyxwMthR",
-    "https://drive.google.com/uc?id=13U3YQdQU9hVm9RnsuJYo2SmrGNBx8G5f",
-    "https://drive.google.com/uc?id=1Uj6zKPwGQTACMwvnzHYPD1SfHx71hODE",
-    "https://drive.google.com/uc?id=1oK5AeBtpyUj-WDzEaFbz6oUZ6ndYaYQ_",
-    "https://drive.google.com/uc?id=16PwFWN8XWw0Y_Y6CF-09IVBHR1oDyhpF",
-    "https://drive.google.com/uc?id=1QYHlvftrYxrdGM1f8VkwG91oCcKMxTp5",
-    "https://drive.google.com/uc?id=1QJG5EURhbKlmgK0IO3CdLNRdKFK_XN8B",
-    "https://drive.google.com/uc?id=1Z5YEdWRIpcl4C4-pCBgAnYRYSYgXmPhZ",
-  ];
+  document.getElementById("home-container").style.display = "block";
+  document.getElementById("quiz-container").style.display = "none";
+  document.getElementById("result-container").style.display = "none";
 
-  const randomIndex = Math.floor(Math.random() * googleDriveLinks.length);
-  const randomLink = googleDriveLinks[randomIndex];
+  const typeSelect = document.getElementById("type");
+  const catagorybox = document.querySelector(".catagory");
 
-  // Find the existing <style> element
-  const styleElement = document.querySelector("style");
-
-  // Define your new CSS rules
-  const cssRules = `
-  nav::before {
-    background: url("${randomLink}") no-repeat center center/cover;
-    content: "";
-    position:fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-    opacity: 0.9;
-  }
-`;
-
-  // Update the CSS rules in the <style> element
-  styleElement.textContent = cssRules;
-
-  console.log(randomLink); // Output: A random URL from the googleDriveLinks array
+  typeSelect.addEventListener("change", function () {
+    if (typeSelect.value === "mixed") {
+      // Hide elements
+      catagorybox.style.display = "none";
+    } else if (typeSelect.value === "categories") {
+      // Show elements
+      catagorybox.style.display = "flex";
+    }
+  });
+  // Ensure "Mixed" is selected by default
+  // typeSelect.value = "mixed";
+  // typeSelect.dispatchEvent(new Event("change"));
 
   document.getElementById("setup").addEventListener("submit", function (e) {
     e.preventDefault();
@@ -207,7 +186,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Hide setup and display the quiz
     document.getElementById("home-container").style.display = "none";
-    document.getElementById("quiz-container").style.display = "block";
+    document.getElementById("quiz-container").style.display = "flex";
     document.getElementById("result-container").style.display = "none";
 
     const totalQuestions = userData.numQuestions;
@@ -215,55 +194,72 @@ document.addEventListener("DOMContentLoaded", function () {
     generateQuiz(randomQuestions);
   });
 
-  document.getElementById("quiz-form").addEventListener("submit", function (e) {
-    e.preventDefault();
+  const Slider = document.querySelector("#question-container");
+  const AllDivs = document.querySelectorAll(".oneque");
+  let size;
+  let counter = 0;
+  const nextBtn = document.querySelector("#nextBtn");
 
-    let correctAnswers = 0;
+  document
+    .getElementById("quizz-submit")
+    .addEventListener("click", function (e) {
+      if (counter == randomQuestions.length - 1) {
+        e.preventDefault();
 
-    const selectedOptions = document.querySelectorAll(
-      'input[type="radio"]:checked'
-    );
+        let correctAnswers = 1;
 
-    selectedOptions.forEach(function (selectedOption) {
-      const questionIndex =
-        parseInt(selectedOption.name.replace("que", "")) - 1;
-      const answer = randomQuestions[questionIndex][5];
-      if (parseInt(selectedOption.value) === parseInt(answer)) {
-        correctAnswers++;
-        selectedCorrectAnswers.push(selectedOption.id);
+        const selectedOptions = document.querySelectorAll(
+          'input[type="radio"]:checked'
+        );
+
+        selectedOptions.forEach(function (selectedOption) {
+          const questionIndex =
+            parseInt(selectedOption.name.replace("que", "")) - 1;
+          const answer = randomQuestions[questionIndex][5];
+          if (parseInt(selectedOption.value) === parseInt(answer)) {
+            correctAnswers++;
+            selectedCorrectAnswers.push(selectedOption.id);
+          } else {
+            selectedWrongAnswers.push(selectedOption.id);
+          }
+        });
+
+        const totalQuestions = userData.numQuestions;
+        const resultPercentage = (correctAnswers / totalQuestions) * 100;
+        let greet;
+        if (parseInt(resultPercentage) > 80) {
+          greet = `Congratulations!! ${userData.name}, `;
+        } else if (
+          parseInt(resultPercentage) > 40 &&
+          parseInt(resultPercentage) <= 80
+        ) {
+          greet = `Good! ${userData.name}, `;
+        } else {
+          greet = `Sorry! ${userData.name} But,`;
+        }
+        const resultMessage = `${greet}You got ${correctAnswers} out of ${totalQuestions} correct. (${resultPercentage}%)`;
+        console.log(CorrectAnswers);
+        console.log(selectedWrongAnswers);
+        document.getElementById("quiz-container").style.display = "none";
+        generateResults(randomQuestions);
+        window.scroll(0, 0);
+        changeoptioncolors();
+        document.getElementById("result-container").style.display = "block";
+        let resultdisplay = document.getElementById("result-display");
+        resultdisplay.innerHTML = resultMessage;
       } else {
-        selectedWrongAnswers.push(selectedOption.id);
+        Slider.style.transition = "transform 0.4s ease-in-out";
+        size = Slider.clientWidth;
+        Slider.style.transform = `translateX(` + -size * (counter + 1) + `px)`;
+        counter++;
+        console.log(counter, randomQuestions.length);
+        if (counter == randomQuestions.length - 1) {
+          document.getElementById("quizz-submit").value = "Submit";
+        } else {
+          document.getElementById("quizz-submit").value = "Next Question";
+        }
       }
     });
-
-    const totalQuestions = userData.numQuestions;
-    const resultPercentage = (correctAnswers / totalQuestions) * 100;
-    let greet;
-    if (parseInt(resultPercentage) > 80) {
-      greet = `Congratulations!! ${userData.name}, `;
-    } else if (
-      parseInt(resultPercentage) > 40 &&
-      parseInt(resultPercentage) <= 80
-    ) {
-      greet = `Good! ${userData.name}, `;
-    } else {
-      greet = `Sorry! ${userData.name} But,`;
-    }
-    const resultMessage = `${greet}You got ${correctAnswers} out of ${totalQuestions} correct. (${resultPercentage}%)`;
-    console.log(CorrectAnswers);
-    console.log(selectedWrongAnswers);
-    document.getElementById("quiz-container").style.display = "none";
-    generateResults(randomQuestions);
-    window.scroll(0, 0);
-    changeoptioncolors();
-    document.getElementById("result-container").style.display = "block";
-    let resultdisplay = document.getElementById("result-display");
-    resultdisplay.innerHTML = resultMessage;
-  });
-});
-let resetbutton = document.getElementById("restart");
-resetbutton.addEventListener("click", () => {
-  location.reload();
 });
 
 let resetbutton2 = document.getElementById("restart2");
@@ -279,7 +275,7 @@ function changeoptioncolors() {
     wrans.push(parseInt(classnm[3]));
   });
   CorrectAnswers.forEach(function (classnm) {
-    document.querySelector("." + classnm).style.backgroundColor = "green";
+    document.querySelector("." + classnm).style.backgroundColor = "lime";
     if (
       !selectedCorrectAnswers.includes(classnm) &&
       wrans[i++] != parseInt(classnm[3])
