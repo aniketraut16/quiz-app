@@ -266,6 +266,10 @@ let resetbutton2 = document.getElementById("restart2");
 resetbutton2.addEventListener("click", () => {
   location.reload();
 });
+let resetbutton1 = document.getElementById("restart1");
+resetbutton1.addEventListener("click", () => {
+  location.reload();
+});
 
 function changeoptioncolors() {
   let wrans = [];
