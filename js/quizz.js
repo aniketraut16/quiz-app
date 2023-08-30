@@ -206,7 +206,7 @@ document.addEventListener("DOMContentLoaded", function () {
       if (counter == randomQuestions.length - 1) {
         e.preventDefault();
 
-        let correctAnswers = 1;
+        let correctAnswers = 0;
 
         const selectedOptions = document.querySelectorAll(
           'input[type="radio"]:checked'
